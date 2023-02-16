@@ -10,6 +10,6 @@ export const Button = ({ clickHandler, text }) => {
 };
 
 Button.propTypes = {
-    lickHandler: PropTypes.func.isRequired,
+    clickHandler: PropTypes.func.isRequired,
     text: PropTypes.string.isRequired,
 };
