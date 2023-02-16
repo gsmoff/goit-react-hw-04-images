@@ -1,30 +1,36 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import css from './Modal.module.css';
+import { createPortal } from 'react-dom';
+
+  const modalRoot = document.querySelector('#root');
 
 export const Modal = ({ currentImg, closeModal }) => {
-  // const handleBackdropClick = e => {
-  //     if (e.currentTarget === e.target) {
-  //         closeModal();
-  //     }
-  // };
+
   useEffect(() => {
     const closeByEscape = e => {
       if (e.code === 'Escape') {
-        closeModal();
+          return closeModal();
       }
     };
 
     window.addEventListener('keydown', closeByEscape);
+    window.addEventListener('click', handleBackdropClick);
 
     return () => {
       window.removeEventListener('keydown', closeByEscape);
+      window.removeEventListener('click', handleBackdropClick);
     };
-  }, [closeModal]);
+  });
+      const handleBackdropClick = e => {
+        if (e.currentTarget === e.target) {
+          return closeModal();
+        }
+      };
 
   // console.log(alt.tags);
-  return (
-    <div className={css.overlay} onClick={() => closeModal()}>
+  return createPortal(
+    <div className={css.overlay} onClick={handleBackdropClick}>
       <div className={css.modal}>
         <img
           className={css.image}
@@ -32,16 +38,15 @@ export const Modal = ({ currentImg, closeModal }) => {
           alt={currentImg.tags}
         />
       </div>
-    </div>
+    </div>,
+    modalRoot
   );
 };
 
 Modal.propTypes = {
   closeModal: PropTypes.func.isRequired,
-  currentImg: PropTypes.arrayOf(
-    PropTypes.shape({
+  currentImg: PropTypes.shape({
       largeImageURL: PropTypes.string.isRequired,
       tags: PropTypes.string.isRequired,
-    }).isRequired
-  ),
+    }).isRequired 
 };

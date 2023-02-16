@@ -8,7 +8,7 @@ import { Modal } from './Modal/Modal';
 export const App = () => {
     const [images, setImages] = useState([]);
     const [searchText, setSearchText] = useState('');
-    const [currentImg, setCurrentImg] = useState('null');
+    const [currentImg, setCurrentImg] = useState(null);
     const [error, setError] = useState('');
     const [status, setStatus] = useState('idle');
     const [page, setPage] = useState(1);
@@ -19,7 +19,7 @@ export const App = () => {
     };
 
     const closeModal = () => {
-        setCurrentImg('');
+        setCurrentImg(null);
     };
 
     const loadMore = () => {
@@ -31,13 +31,13 @@ export const App = () => {
             return;
         }
         setSearchText(search);
-        setCurrentImg([]);
+        setCurrentImg(null);
         setPage(1);
     };
 
     useEffect(() => {
         if (searchText === '') {
-            setCurrentImg([]);
+            setCurrentImg(null);
             return;
         }
         getImages(searchText, page)

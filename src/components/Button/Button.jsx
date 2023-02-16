@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import css from './Button.module.css';
 export const Button = ({ clickHandler, text }) => {
     return (
@@ -6,4 +7,9 @@ export const Button = ({ clickHandler, text }) => {
             {text}
         </button>
     );
+};
+
+Button.propTypes = {
+    lickHandler: PropTypes.func.isRequired,
+    text: PropTypes.string.isRequired,
 };
